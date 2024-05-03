@@ -37,7 +37,7 @@ class Server:
         else:
             return self.__dataset[i[0]:i[1]]
 
-    def get_hyper(self, page:int = 1, page_size: int = 10) -> Dict:
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
         """ get hyper """
         items = len(self.dataset())
         data = self.get_page(page, page_size)
@@ -52,7 +52,6 @@ class Server:
             "total_pages": total_pages
             }
         return PD
-
 
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
