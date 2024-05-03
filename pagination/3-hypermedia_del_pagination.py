@@ -39,28 +39,25 @@ class Server:
             }
         return self.__indexed_dataset
 
-    def get_hyper_index(index=None, page_size=10) -> Dict:
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """ get hyper index """
-        dataset_size = 100
-        deleted_rows = {3, 6, 7}
+        assert 0 <= index < len(self.dataset())
 
-        assert index is None or (isinstance(index, int) and index >= 0)
-        assert page_size > 0
+        indexed_dataset = self.indexed_dataset()
+        indexed_page = {}
 
-        current_index = index if index is not None else 0
-        if current_index >= dataset_size:
-            return {}
+        i = index
+        while (len(indexed_page) < page_size and i < len(self.dataset())):
+            if i in indexed_dataset:
+                indexed_page[i] = indexed_dataset[i]
+            i += 1
 
-        next_index = min(current_index + page_size, dataset_size)
-
-        deleted_rows_before_next_index = len([r for r in deleted_rows if r < next_index])
-        next_index += deleted_rows_before_next_index
-
-        data = list(range(current_index, min(next_index, dataset_size)))
+        page = list(indexed_page.values())
+        page_indices = indexed_page.keys()
 
         return {
-            "index": current_index,
-            "next_index": next_index,
-            "page_size": page_size,
-            "data": data
+            'index': index,
+            'next_index': max(page_indices) + 1,
+            'page_size': len(page),
+            'data': page
         }
