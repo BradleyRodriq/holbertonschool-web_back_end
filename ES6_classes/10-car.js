@@ -4,12 +4,13 @@ export default class Car {
     this._motor = motor;
     this._color = color;
   }
+
   static get [Symbol.species]() {
     return this;
   }
 
   cloneCar() {
-    const clonedCar = this.constructor[Symbol.species];
-    return new clonedCar(undefined, undefined, undefined);
+    const ClonedCar = this.constructor[Symbol.species];
+    return new ClonedCar(undefined, undefined, undefined);
   }
 }
