@@ -1,5 +1,4 @@
-import { create } from "domain";
-import { uploadPhoto, createUser } from "./utils";
+import { uploadPhoto, createUser } from './utils';
 
 export default function handleProfileSignup() {
   let body;
@@ -14,7 +13,7 @@ export default function handleProfileSignup() {
           firstName = data.firstName;
           lastName = data.lastName;
           console.log(`${body} ${firstName} ${lastName}`);
-        })
+        });
     })
     .catch(() => console.log('Signup system offline'));
 }
