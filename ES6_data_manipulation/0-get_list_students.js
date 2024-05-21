@@ -7,13 +7,12 @@ const getListStudents = () => [
     {
         id: 2,
         firstName: 'James',
-        location: 'Columbia'
+        location: 'Columbia',
     },
     {
         id: 5,
         firstName: 'Serena',
-        location: 'San Franciso'
+        location: 'San Franciso',
     },
 ];
-
 export default getListStudents;
