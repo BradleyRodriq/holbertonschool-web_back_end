@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+""" authentication module
+"""
 
 from flask import request
 from typing import List, TypeVar
