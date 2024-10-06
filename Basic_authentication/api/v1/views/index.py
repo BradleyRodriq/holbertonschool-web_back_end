@@ -33,3 +33,12 @@ def unauthorized() -> None:
     the 401 error + Flask.
     """
     abort(401)
+
+
+@app_views.route('/forbidden/', strict_slashes=False)
+def forbidden() -> None:
+    """
+    This path was made to test
+    the 403 error + Flask.
+    """
+    abort(403)
