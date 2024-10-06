@@ -19,7 +19,6 @@ class BasicAuth(Auth):
         self,
         authorization_header: str
     ) -> str:
-        """ Extracts the Base64 """
         HEADER_START = "Basic "
 
         if authorization_header is None:
@@ -89,26 +88,7 @@ class BasicAuth(Auth):
 
     def current_user(self, request: str = None) -> TypeVar('User'):
         """
-        Takes in an HTTP request AUTH HEADER,
-        named 'request', to this site,
-        and returns a 'models.user.User' instance
-        representing the user's credentials.
-
-        (THE 'request' VARIABLE IS ASSUMED TO BE
-        THE USER REQUEST HEADER, AND IS ASSUMED TO BE
-        SAFE AND VALID)
-
-        If the headers, named 'request', have
-        valid credentials, the above
-        paragraph is true.
-
-        But if the credentials are invalid,
-        there's anything wrong with the auth header
-        or the auth header is missing, the method
-        returns None.
-
-        The method uses the other methods in this
-        class to achieve its purpose.
+        Returns the User object
         """
 
         BASE_64_AUTH_HEADER = self.extract_base64_authorization_header(
