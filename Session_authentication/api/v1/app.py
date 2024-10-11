@@ -50,6 +50,7 @@ def authenticate() -> None:
 
     request.current_user = USER
 
+
 @app.errorhandler(401)
 def unauthorized(error) -> str:
     """
