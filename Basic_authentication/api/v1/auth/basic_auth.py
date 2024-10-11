@@ -3,12 +3,10 @@
 Contains 'BasicAuth', which is an empty
 child class of 'Auth'.
 """
-from api.v1.auth.auth import Auth
-from typing import TypeVar, List
 import base64
-import binascii
+from typing import TypeVar
+from api.v1.auth.auth import Auth
 from models.user import User
-from models.base import DATA
 
 
 class BasicAuth(Auth):
@@ -19,6 +17,14 @@ class BasicAuth(Auth):
         self,
         authorization_header: str
     ) -> str:
+        """_summary_
+
+        Args:
+            authorization_header (str): _description_
+
+        Returns:
+            str: _description_
+        """
         HEADER_START = "Basic "
 
         if authorization_header is None:
