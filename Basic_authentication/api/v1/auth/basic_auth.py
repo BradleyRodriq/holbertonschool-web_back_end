@@ -105,7 +105,6 @@ class BasicAuth(Auth):
             base_64_auth_header
         )
 
-
         user_credentials = self.extract_user_credentials(
             auth_header
         )
