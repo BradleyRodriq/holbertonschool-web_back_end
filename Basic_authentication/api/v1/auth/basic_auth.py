@@ -97,20 +97,17 @@ class BasicAuth(Auth):
         """
         Returns the User object
         """
-        if request is None or not hasattr(request, 'headers'):
-            return None
-
-        auth_header = request.headers.get('Authorization')
         base_64_auth_header = self.extract_base64_authorization_header(
-            auth_header
+            request
         )
 
-        auth_header_decoded = self.decode_base64_authorization_header(
+        auth_header = self.decode_base64_authorization_header(
             base_64_auth_header
         )
 
+
         user_credentials = self.extract_user_credentials(
-            auth_header_decoded
+            auth_header
         )
 
         result = self.user_object_from_credentials(*user_credentials)
