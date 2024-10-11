@@ -30,7 +30,7 @@ class BasicAuth(Auth):
 
         if authorization_header is None:
             return None
-        if isinstance(authorization_header) != str:
+        if not isinstance(authorization_header, str):
             return None
         if not authorization_header.startswith(head):
             return None
@@ -45,7 +45,7 @@ class BasicAuth(Auth):
         """
         if base64_authorization_header is None:
             return None
-        if isinstance(base64_authorization_header) != str:
+        if not isinstance(base64_authorization_header, str):
             return None
 
         try:
@@ -61,7 +61,7 @@ class BasicAuth(Auth):
         """
         if decoded_base64_authorization_header is None:
             return (None, None)
-        if isinstance(decoded_base64_authorization_header) != str:
+        if not isinstance(decoded_base64_authorization_header, str):
             return (None, None)
         if ':' not in decoded_base64_authorization_header:
             return (None, None)
@@ -78,9 +78,9 @@ class BasicAuth(Auth):
         Returns the User object
         """
 
-        if user_email is None or isinstance(user_email) != str:
+        if user_email is None or not isinstance(user_email, str):
             return None
-        if user_pwd is None or isinstance(user_pwd) != str:
+        if user_pwd is None or not isinstance(user_pwd, str):
             return None
 
         try:
