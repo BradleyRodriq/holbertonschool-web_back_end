@@ -10,6 +10,7 @@ import os
 
 from api.v1.auth.auth import Auth
 from api.v1.auth.basic_auth import BasicAuth
+from api.v1.auth.session_auth import SessionAuth
 from models.user import User
 
 app = Flask(__name__)
@@ -18,8 +19,14 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 auth: Auth = None
 
-if os.environ.get("AUTH_TYPE", None) == "basic_auth":
+AUTH_TYPE: str = os.environ.get("AUTH_TYPE", None)
+
+auth: Auth = None
+
+if AUTH_TYPE == "basic_auth":
     auth = BasicAuth()
+elif AUTH_TYPE == "session_auth":
+    auth = SessionAuth()
 else:
     auth = Auth()
 
@@ -38,17 +45,17 @@ def authenticate() -> None:
     ):
         return
 
-    AUTH_HEADER: str = auth.authorization_header(request)
+    auth_header: str = auth.authorization_header(request)
 
-    if AUTH_HEADER is None:
+    if auth_header is None:
         abort(401)
 
-    USER: User = auth.current_user(AUTH_HEADER)
+    user: User = auth.current_user(auth_header)
 
-    if USER is None:
+    if user is None:
         abort(403)
 
-    request.current_user = USER
+    request.current_user = user
 
 
 @app.errorhandler(401)
