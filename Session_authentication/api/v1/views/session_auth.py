@@ -8,7 +8,6 @@ from typing import List
 import os
 import flask
 from api.v1.auth.session_auth import SessionAuth
-from api.v1.app import auth
 from api.v1.views import app_views
 from models.user import User
 
@@ -18,7 +17,7 @@ def login():
     """
     login route
     """
-
+    from api.v1.app import auth
     email = flask.request.form.get("email", default=None)
     password = flask.request.form.get("password", default=None)
 
