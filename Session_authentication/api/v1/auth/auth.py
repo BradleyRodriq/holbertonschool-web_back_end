@@ -4,6 +4,7 @@ Contains 'Auth'.
 """
 import flask
 from typing import List, TypeVar
+import os
 
 
 class Auth:
@@ -38,3 +39,14 @@ class Auth:
         current_user method.
         """
         return None
+
+    def session_cookie(self, request: flask.Request = None):
+        """
+        docstring
+        """
+        if request is None:
+            return None
+
+        return request.cookies.get(
+            os.environ.get("SESSION_NAME", None)
+        )
