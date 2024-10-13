@@ -34,7 +34,7 @@ class Auth:
 
         return result
 
-    def current_user(self, request: str = None) -> TypeVar('User'):
+    def current_user(self, request=None):
         """
         current_user method.
         """
