@@ -5,9 +5,11 @@ which allows the user to login for the first time,
 and creates a new session for the user.
 """
 import os
-from typing import List
+from typing import List, Tuple
+import flask
 from flask import request, jsonify, make_response
 from api.v1.views import app_views
+from api.v1.auth.session_auth import SessionAuth
 from models.user import User
 
 
@@ -44,3 +46,22 @@ def login():
     response.set_cookie(session_cookie, session_id)
 
     return response
+
+
+@app_views.route('/auth_session/logout',
+                 methods=["DELETE"],
+                 strict_slashes=False)
+def logout() -> Tuple[flask.Response, int]:
+    """
+    docstring
+    """
+    from api.v1.app import auth
+
+    assert isinstance(auth, SessionAuth)
+
+    del_session = auth.destroy_session(flask.request)
+
+    if del_session:
+        return flask.jsonify(True), 200
+    else:
+        return flask.jsonify(False), 404
