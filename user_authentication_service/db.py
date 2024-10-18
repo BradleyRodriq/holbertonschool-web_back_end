@@ -59,3 +59,17 @@ class DB:
             raise NoResultFound
 
         return found_user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """
+        updates user
+        """
+        user: User = self.find_user_by(id=user_id)
+
+        if 'id' in kwargs:
+            raise ValueError("Cannot update 'id' of 'User'.")
+
+        for attr, value in kwargs.items():
+            if attr not in user.__dict__.keys():
+                raise ValueError(f"'User' object has no attribute '{attr}'")
+            setattr(user, attr, value)
