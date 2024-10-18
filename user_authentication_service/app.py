@@ -132,6 +132,7 @@ def get_reset_password_token() -> flask.Response:
     return flask.jsonify({"email": email, "reset_token": result})
 
 
+@app.route("/reset_password/", methods=["PUT"], strict_slashes=False)
 def update_password() -> flask.Response:
     """
     update password endpoint
