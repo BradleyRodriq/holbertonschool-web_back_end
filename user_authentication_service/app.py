@@ -90,5 +90,29 @@ def logout():
     return flask.redirect(flask.url_for('bienvenue'))
 
 
+@app.route("/profile/", methods=["GET"], strict_slashes=False)
+def profile() -> flask.Response:
+    """
+    respond to the /profile route
+    """
+    session_id_cookie: Optional[str] = \
+        flask.request.cookies.get(
+            "session_id"
+        )
+
+    if session_id_cookie is None:
+        flask.abort(403)
+
+    user: Optional[User] = \
+        AUTH.get_user_from_session_id(
+            session_id_cookie
+        )
+
+    if user is None:
+        flask.abort(403)
+
+    return flask.jsonify({"email": user.email})
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
