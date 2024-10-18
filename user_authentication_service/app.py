@@ -19,6 +19,7 @@ def bienvenue() -> Tuple[flask.Response, int]:
     return flask.jsonify({"message": "Bienvenue"}), 200
 
 
+@app.route("/users/", methods=["POST"], strict_slashes=False)
 def users() -> Tuple[flask.Response, int]:
     """
     users route
