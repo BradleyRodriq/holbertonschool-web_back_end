@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """DB module
 """
+from typing import Union
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.orm.exc import NoResultFound
+
 
 from user import Base, User
 
@@ -43,3 +46,16 @@ class DB:
         self._session.commit()
 
         return new_user
+
+    def find_user_by(self, **kwargs) -> User:
+        """
+        returns the first row found on the users table
+        """
+        found_user: Union[User, None] = self._session.query(User) \
+            .filter_by(**kwargs) \
+            .first()
+
+        if found_user is None:
+            raise NoResultFound
+
+        return found_user
