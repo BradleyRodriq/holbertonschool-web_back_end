@@ -9,7 +9,6 @@ from auth import Auth
 from user import User
 
 
-
 app = flask.Flask(__name__)
 AUTH = Auth()
 
