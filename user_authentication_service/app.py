@@ -132,5 +132,21 @@ def get_reset_password_token() -> flask.Response:
     return flask.jsonify({"email": email, "reset_token": result})
 
 
+def update_password() -> flask.Response:
+    """
+    update password endpoint
+    """
+    email: Optional[str] = flask.request.form.get("email")
+    reset_token: Optional[str] = flask.request.form.get("reset_token")
+    new_pw: Optional[str] = flask.request.form.get("new_password")
+
+    try:
+        AUTH.update_password(reset_token, new_pw)
+    except ValueError:
+        flask.abort(403)
+
+    return flask.jsonify({"email": email, "message": "Password updated"})
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
