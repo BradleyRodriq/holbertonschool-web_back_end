@@ -35,5 +35,29 @@ def users() -> Tuple[flask.Response, int]:
         return flask.jsonify({"email": email, "message": "user created"}), 200
 
 
+@app.route("/sessions/", methods=["POST"], strict_slashes=False)
+def login() -> flask.Response:
+    """
+    login route
+    """
+    email: Optional[str] = flask.request.form.get("email")
+    password: Optional[str] = flask.request.form.get("password")
+
+    if not AUTH.valid_login(email, password):
+        flask.abort(401)
+
+    session_id: Optional[str] = AUTH.create_session(email)
+
+    if session_id is None:
+        flask.abort(401)
+
+    response: flask.Response = flask.make_response(
+        flask.jsonify({"email": email, "message": "logged in"})
+    )
+    response.set_cookie("session_id", session_id)
+
+    return response
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
