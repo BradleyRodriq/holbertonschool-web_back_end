@@ -34,7 +34,7 @@ class Auth:
         else:
             raise ValueError(f"User {email} already exists.")
 
-    def valid_login(self, email:str , password: str) -> bool:
+    def valid_login(self, email: str, password: str) -> bool:
         """ checks if user info is valid """
         try:
             valid_user: User = self._db.find_user_by(email=email)
