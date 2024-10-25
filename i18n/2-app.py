@@ -32,6 +32,7 @@ def get_locale() -> Union[str, None]:
         app.config["LANGUAGES"]
     )
 
+
 @app.route("/", strict_slashes=False)
 def home() -> flask.Response:
     """
