@@ -19,7 +19,7 @@ class Config:
 
 app = flask.Flask(__name__)
 app.config.from_object(Config)
-babel = flask_babel.Babel(app)
+babel = flask_babel.Babel(app, locale_selector=get_locale)
 
 
 @babel.localeselector
@@ -42,5 +42,6 @@ def home() -> flask.Response:
 
 if __name__ == "__main__":
     app.run(
-        environ.get("HOST"), environ.get("PORT")
+        host=environ.get("HOST", "0.0.0.0"),
+        port=int(environ.get("PORT", 5000))
     )
