@@ -26,7 +26,6 @@ def index() -> str:
     return render_template('4-index.html')
 
 
-@babel.localeselector
 def get_locale() -> str:
     """ Determines best match for supported languages """
     if request.args.get('locale'):
