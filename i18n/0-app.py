@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Exercise 0: Setup a basic app
+basic app
 """
 import flask
 from os import environ
