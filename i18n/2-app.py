@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-2-app.py
+basic app
 """
 import flask
 import flask_babel
@@ -10,8 +10,7 @@ from os import environ
 
 class Config:
     """
-    Contains the allowed languages
-    and default timezone for 'babel'.
+    language and babel config
     """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
