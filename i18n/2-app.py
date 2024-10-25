@@ -2,9 +2,10 @@
 """
 basic app
 """
-from os import environ
 import flask
 import flask_babel
+from typing import Union
+from os import environ
 
 
 class Config:
@@ -18,23 +19,25 @@ class Config:
 
 app = flask.Flask(__name__)
 app.config.from_object(Config)
+
 babel = flask_babel.Babel(app)
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> Union[str, None]:
     """
-    Determine the best match with the supported languages.
+    get locale
     """
-    return flask.request.accept_languages.best_match(app.config['LANGUAGES'])
-
+    return flask.request.accept_languages.best_match(
+        app.config["LANGUAGES"]
+    )
 
 @app.route("/", strict_slashes=False)
 def home() -> flask.Response:
     """
     homepage
     """
-    return flask.render_template("1-index.html")
+    return flask.render_template("2-index.html")
 
 
 if __name__ == "__main__":
