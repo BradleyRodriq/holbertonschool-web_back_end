@@ -2,10 +2,12 @@
 """
 basic app
 """
-import flask
-import flask_babel
 from typing import Union
 from os import environ
+import flask
+import flask_babel
+import babel
+
 
 
 class Config:
@@ -19,7 +21,7 @@ class Config:
 
 app = flask.Flask(__name__)
 app.config.from_object(Config)
-babel = flask_babel.Babel(app, locale_selector=get_locale)
+
 
 
 @babel.localeselector
@@ -27,15 +29,16 @@ def get_locale() -> Union[str, None]:
     """
     get_locale
     """
-    LOCALE_ARG: Union[str, None] = flask.request.args.get("locale", None)
+    locale_arg: Union[str, None] = flask.request.args.get("locale", None)
 
-    if LOCALE_ARG is not None and LOCALE_ARG in app.config["LANGUAGES"]:
-        return LOCALE_ARG
+    if locale_arg is not None and locale_arg in app.config["LANGUAGES"]:
+        return locale_arg
 
     return flask.request.accept_languages.best_match(
         app.config["LANGUAGES"]
     )
 
+babel = flask_babel.Babel(app, locale_selector=get_locale)
 
 @app.route("/", strict_slashes=False)
 def home() -> flask.Response:
