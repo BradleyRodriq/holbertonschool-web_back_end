@@ -19,8 +19,6 @@ app.get('/list_products', (request, response) => {
 
 const redisClient = redis.createClient();
 function reserveStockById(itemId, stock) {
-  // assuming there's enough stock,
-  // and that `itemId` is valid.
   const item = getItemById(itemId);
 
   if (item.currentQuantity === undefined) {
@@ -35,7 +33,6 @@ async function getCurrentReservedStockById(itemId) {
   return await redisClient.get(`item.${itemId}`);
 }
 
-// ?
 app.get('/list_products/:itemId', (request, response) => {
   getCurrentReservedStockById(request.params.itemId)
     .then((item) => {
